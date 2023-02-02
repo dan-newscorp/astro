@@ -19,6 +19,7 @@ import {
 	prependForwardSlash,
 	removeLeadingForwardSlash,
 	removeTrailingForwardSlash,
+	addAssetPrefix,
 } from '../../core/path.js';
 import { runHookBuildGenerated } from '../../integrations/index.js';
 import { BEFORE_HYDRATION_SCRIPT_ID, PAGE_SCRIPT_ID } from '../../vite-plugin-scripts/index.js';
@@ -363,7 +364,7 @@ async function generatePath(
 				}
 				throw new Error(`Cannot find the built path for ${specifier}`);
 			}
-			return prependForwardSlash(npath.posix.join(settings.config.base, hashedFilePath));
+			return addAssetPrefix(settings.config.assetPrefix, prependForwardSlash(npath.posix.join(settings.config.base, hashedFilePath)));
 		},
 		routeCache,
 		site: settings.config.site
